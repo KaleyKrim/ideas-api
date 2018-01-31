@@ -20,7 +20,7 @@ const {
 }
 
 func (i *IdeasDAO) Connect(){
-  session, err := mgo.Dial(m.Server)
+  session, err := mgo.Dial(i.Server)
   if err != nil {
     log.Fatal(err)
   }
