@@ -46,3 +46,20 @@ func (i *IdeasDAO) FindById(id string) (Idea, error){
   err := db.C(COLLECTION).FindId(bson.ObjectIdHex(id)).One(&idea)
   return idea, err
 }
+
+//Then we give the struct methods for post, delete, put
+
+func (i *IdeasDAO) Insert(idea Idea) error{
+  err := db.C(COLLECTION).Insert(&idea)
+  return err
+}
+
+func (i *IdeasDAO) Delete(idea Idea) error {
+  err := db.C(COLLECTION).Remove(&idea)
+  return err
+}
+
+func (i *IdeasDAO) Update(idea Idea) error{
+  err := db.C(COLLECTION).UpdateId(idea.ID, &idea)
+  return err
+}
