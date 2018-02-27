@@ -6,6 +6,11 @@ import (
 	"net/http"
 )
 
+type Idea struct {
+	ID          int    `bson:"_id" json:"id"`
+	Description string `bson:"description" json:"description"`
+}
+
 func AllIdeas(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Future home of /ideas GET")
 }
@@ -16,6 +21,7 @@ func FindIdea(w http.ResponseWriter, r *http.Request) {
 
 func CreateIdea(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Future home of /ideas POST")
+
 }
 
 func UpdateIdea(w http.ResponseWriter, r *http.Request) {
