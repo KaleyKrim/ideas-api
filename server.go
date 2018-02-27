@@ -2,14 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
+	// "github.com/gorilla/mux"
+	"log"
 	"net/http"
 )
-
-type Idea struct {
-	ID          int    `bson:"_id" json:"id"`
-	Description string `bson:"description" json:"description"`
-}
 
 func AllIdeas(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Future home of /ideas GET")
@@ -33,13 +29,19 @@ func DeleteIdea(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	r := mux.NewRouter()
 
-	r.HandleFunc("/ideas", AllIdeas).Methods("GET")
-	r.HandleFunc("/ideas", CreateIdea).Methods("POST")
-	r.HandleFunc("/ideas/{id}", UpdateIdea).Methods("PUT")
-	r.HandleFunc("/ideas/{id}", DeleteIdea).Methods("DELETE")
-	r.HandleFunc("/ideas/{id}", FindIdea).Methods("GET")
+	fs := http.FileServer(http.Dir("public"))
+	http.Handle("/", fs)
 
-	http.ListenAndServe(":8080", r)
+	log.Println("listening...")
+
+	// r := mux.NewRouter()
+
+	// r.HandleFunc("/ideas", AllIdeas).Methods("GET")
+	// r.HandleFunc("/ideas", CreateIdea).Methods("POST")
+	// r.HandleFunc("/ideas/{id}", UpdateIdea).Methods("PUT")
+	// r.HandleFunc("/ideas/{id}", DeleteIdea).Methods("DELETE")
+	// r.HandleFunc("/ideas/{id}", FindIdea).Methods("GET")
+
+	http.ListenAndServe(":8080", nil)
 }
