@@ -43,5 +43,5 @@ func main() {
 	// r.HandleFunc("/ideas/{id}", DeleteIdea).Methods("DELETE")
 	// r.HandleFunc("/ideas/{id}", FindIdea).Methods("GET")
 
-	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
